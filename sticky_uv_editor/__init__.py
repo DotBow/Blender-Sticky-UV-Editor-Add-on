@@ -367,7 +367,8 @@ class StickyUVEditor_UI_Button(GizmoGroup):
         mpr.icon = 'UV'
         mpr.draw_options = {'BACKDROP', 'OUTLINE'}
 
-        mpr.alpha = 0.0
+        mpr.color = 0.0, 0.0, 0.0
+        mpr.alpha = 0.5
         mpr.color_highlight = 0.8, 0.8, 0.8
         mpr.alpha_highlight = 0.2
 
