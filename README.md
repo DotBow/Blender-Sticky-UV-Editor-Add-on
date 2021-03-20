@@ -8,6 +8,8 @@
 </p>
 </details>
 
+[![Watch the quick overview video]()](https://youtu.be/r8QU8zIUHy8)
+
 Shortcut to toggle while in 3D Viewport/UV Editor area is `Shift + T`
 
 Known issues/limitations:
