@@ -305,7 +305,7 @@ Hold 'Alt' to open UV Editor in a separate window."""
 
         if (view_mode != 'DISABLE') and (context.mode == 'EDIT_MESH'):
             override = {'window': context.window,
-                        'screen': context.window.screen, 'area': area}
+                        'screen': context.window.screen, 'area': uv_area}
 
             if view_mode == 'FRAME_ALL':
                 bpy.ops.image.view_all(override)
