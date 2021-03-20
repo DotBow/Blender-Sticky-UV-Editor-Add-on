@@ -12,5 +12,6 @@ Shortcut to toggle while in 3D Viewport/UV Editor area is `Shift + T`
 
 Known issues/limitations:
 
+- Active Sidebar panel are not preserved
 - Toolbar and Sidebar are always shown regardless settings when opening UV Editor in a separate window
 - UV Editor settings not saved if UV Editor opened in a separate window
