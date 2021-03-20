@@ -44,11 +44,11 @@ class AddonPreferences(AddonPreferences):
 
     uv_editor_side: EnumProperty(
         name="UV Editor Side",
-        description="3D View area side where to open UV Editor",
+        description="3D Viewport area side where to open UV Editor",
         items={('LEFT', "Left",
-                "Open UV Editor on the left side of 3D View area", 0),
+                "Open UV Editor on the left side of 3D Viewport area", 0),
                ('RIGHT', "Right",
-                "Open UV Editor on the right side of 3D View area", 1)},
+                "Open UV Editor on the right side of 3D Viewport area", 1)},
         default='LEFT')
     show_ui_button: BoolProperty(
         name="Show Overlay Button",
@@ -181,7 +181,6 @@ Hold 'Alt' to open UV Editor in a separate window."""
                         if area_y == active_area_y:
                             # UV Editor on left
                             if (active_area_x + active_area_width + 1) == area_x:
-                                print("test")
                                 # Save UV Editor area settings
                                 scene.uv_editor_settings.save_from_area(
                                     active_area)
