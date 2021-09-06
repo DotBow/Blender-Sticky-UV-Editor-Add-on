@@ -157,6 +157,7 @@ Hold 'Alt' to open UV Editor in a separate window."""
     def invoke(self, context, event):
         scene = context.scene
         active_area = context.area
+        app_version = bpy.app.version
 
         if not event.alt:
             if context.window.screen.show_fullscreen is True:
@@ -186,13 +187,17 @@ Hold 'Alt' to open UV Editor in a separate window."""
                                     active_area)
 
                                 # Close UV Editor area
-                                bpy.ops.screen.area_join(
-                                    cursor=(area_x, area_y + 10))
+                                if app_version >= (3, 0, 0):
+                                    bpy.ops.screen.area_close(
+                                        {"area": active_area})
+                                else:
+                                    bpy.ops.screen.area_join(
+                                        cursor=(area_x, area_y + 10))
 
-                                # Force update layout
-                                space = area.spaces[0]
-                                space.show_region_toolbar = \
-                                    space.show_region_toolbar
+                                    # Force update layout
+                                    space = area.spaces[0]
+                                    space.show_region_toolbar = \
+                                        space.show_region_toolbar
 
                                 return {'FINISHED'}
 
@@ -203,15 +208,19 @@ Hold 'Alt' to open UV Editor in a separate window."""
                                     active_area)
 
                                 # Close UV Editor area
-                                bpy.ops.screen.area_swap(
-                                    cursor=(active_area_x, active_area_y + 10))
-                                bpy.ops.screen.area_join(
-                                    cursor=(active_area_x, active_area_y + 10))
+                                if app_version >= (3, 0, 0):
+                                    bpy.ops.screen.area_close(
+                                        {"area": active_area})
+                                else:
+                                    bpy.ops.screen.area_swap(
+                                        cursor=(active_area_x, active_area_y + 10))
+                                    bpy.ops.screen.area_join(
+                                        cursor=(active_area_x, active_area_y + 10))
 
-                                # Force update layout
-                                space = active_area.spaces[0]
-                                space.show_region_toolbar = \
-                                    space.show_region_toolbar
+                                    # Force update layout
+                                    space = active_area.spaces[0]
+                                    space.show_region_toolbar = \
+                                        space.show_region_toolbar
 
                                 return {'FINISHED'}
 
@@ -233,15 +242,18 @@ Hold 'Alt' to open UV Editor in a separate window."""
                                 scene.uv_editor_settings.save_from_area(area)
 
                                 # Close UV Editor area
-                                bpy.ops.screen.area_swap(
-                                    cursor=(area_x, area_y + 10))
-                                bpy.ops.screen.area_join(
-                                    cursor=(area_x, area_y + 10))
+                                if app_version >= (3, 0, 0):
+                                    bpy.ops.screen.area_close({"area": area})
+                                else:
+                                    bpy.ops.screen.area_swap(
+                                        cursor=(area_x, area_y + 10))
+                                    bpy.ops.screen.area_join(
+                                        cursor=(area_x, area_y + 10))
 
-                                # Force update layout
-                                space = area.spaces[0]
-                                space.show_region_toolbar = \
-                                    space.show_region_toolbar
+                                    # Force update layout
+                                    space = area.spaces[0]
+                                    space.show_region_toolbar = \
+                                        space.show_region_toolbar
 
                                 return {'FINISHED'}
 
@@ -251,13 +263,16 @@ Hold 'Alt' to open UV Editor in a separate window."""
                                 scene.uv_editor_settings.save_from_area(area)
 
                                 # Close UV Editor area
-                                bpy.ops.screen.area_join(
-                                    cursor=(active_area_x, active_area_y + 10))
+                                if app_version >= (3, 0, 0):
+                                    bpy.ops.screen.area_close({"area": area})
+                                else:
+                                    bpy.ops.screen.area_join(
+                                        cursor=(active_area_x, active_area_y + 10))
 
-                                # Force update layout
-                                space = active_area.spaces[0]
-                                space.show_region_toolbar = \
-                                    space.show_region_toolbar
+                                    # Force update layout
+                                    space = active_area.spaces[0]
+                                    space.show_region_toolbar = \
+                                        space.show_region_toolbar
 
                                 return {'FINISHED'}
 
