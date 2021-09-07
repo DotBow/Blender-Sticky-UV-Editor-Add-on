@@ -42,6 +42,16 @@ bl_info = {
 class AddonPreferences(AddonPreferences):
     bl_idname = __name__
 
+    settings_tabs: EnumProperty(
+        items=[
+            ("GENERAL", "General", ""),
+            ("OVERLAY", "Overlay", ""),
+            ("VIEW", "View", ""),
+            ("KEYMAP", "Keymap", "")
+        ],
+        default="GENERAL"
+    )
+
     uv_editor_side: EnumProperty(
         name="UV Editor Side",
         description="3D Viewport area side where to open UV Editor",
@@ -79,62 +89,67 @@ class AddonPreferences(AddonPreferences):
 
     def draw(self, context):
         layout = self.layout
+        layout.row().prop(self, "settings_tabs", expand=True)
 
         # Draw preferences
-        box = layout.box()
-        split = box.split()
-        col = split.column()
-        col.label(text="Add-on Settings:")
-        col.separator()
-        col.prop(self, "uv_editor_side")
-        col.prop(self, "show_ui_button")
-        col.prop(self, "remember_uv_editor_settings")
+        if self.settings_tabs == 'GENERAL':
+            box = layout.box()
+            split = box.split()
+            col = split.column()
+            col.label(text="Add-on Settings:")
+            col.separator()
+            col.prop(self, "uv_editor_side")
+            col.prop(self, "show_ui_button")
+            col.prop(self, "remember_uv_editor_settings")
 
-        box = layout.box()
-        split = box.split()
-        col = split.column()
-        col.label(text="UV Editor Tool Settings:")
-        col.separator()
+            box = layout.box()
+            split = box.split()
+            col = split.column()
+            col.label(text="UV Editor Tool Settings:")
+            col.separator()
 
-        col.prop(self, "use_uv_select_sync")
+            col.prop(self, "use_uv_select_sync")
 
-        box = layout.box()
-        split = box.split()
-        col = split.column()
-        col.label(text="UV Editor Overlay Settings:")
-        col.separator()
+        if self.settings_tabs == 'OVERLAY':
+            box = layout.box()
+            split = box.split()
+            col = split.column()
+            col.label(text="UV Editor Overlay Settings:")
+            col.separator()
 
-        col.label(text="UV Editor")
-        row = col.row()
-        row.prop(self.uv_editor_settings, "show_stretch")
-        row.prop(self.uv_editor_settings, "display_stretch_type", text="")
-        col.separator()
+            col.label(text="UV Editing")
+            row = col.row()
+            row.prop(self.uv_editor_settings, "show_stretch")
+            row.prop(self.uv_editor_settings, "display_stretch_type", text="")
+            col.separator()
 
-        col.label(text="Geometry")
-        col.prop(self.uv_editor_settings, "uv_opacity")
-        col.prop(self.uv_editor_settings, "edge_display_type", text="")
-        col.prop(self.uv_editor_settings, "show_modified_edges")
-        col.prop(self.uv_editor_settings, "show_faces")
-        col.separator()
+            col.label(text="Geometry")
+            col.prop(self.uv_editor_settings, "uv_opacity")
+            col.prop(self.uv_editor_settings, "edge_display_type", text="")
+            col.prop(self.uv_editor_settings, "show_modified_edges")
+            col.prop(self.uv_editor_settings, "show_faces")
+            col.separator()
 
-        col.label(text="Image")
-        col.prop(self.uv_editor_settings, "show_metadata")
+            col.label(text="Image")
+            col.prop(self.uv_editor_settings, "show_metadata")
 
-        box = layout.box()
-        split = box.split()
-        col = split.column()
-        col.label(text="UV Editor View Settings:")
-        col.separator()
+        if self.settings_tabs == 'VIEW':
+            box = layout.box()
+            split = box.split()
+            col = split.column()
+            col.label(text="UV Editor View Settings:")
+            col.separator()
 
-        col.prop(self, "view_mode")
-        col.prop(self.uv_editor_settings, "show_region_toolbar")
-        col.prop(self.uv_editor_settings, "show_region_ui")
-        col.prop(self.uv_editor_settings, "show_region_tool_header")
-        col.prop(self.uv_editor_settings, "show_region_hud")
+            col.prop(self, "view_mode")
+            col.prop(self.uv_editor_settings, "show_region_toolbar")
+            col.prop(self.uv_editor_settings, "show_region_ui")
+            col.prop(self.uv_editor_settings, "show_region_tool_header")
+            col.prop(self.uv_editor_settings, "show_region_hud")
 
         # Draw keymap
-        keys = [('Window', 'wm.sticky_uv_editor', None)]
-        draw_key(self.layout, keys)
+        if self.settings_tabs == 'KEYMAP':
+            keys = [('Window', 'wm.sticky_uv_editor', None)]
+            draw_key(self.layout, keys)
 
 
 class StickyUVEditor(Operator):
