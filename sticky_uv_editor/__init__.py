@@ -35,6 +35,8 @@ bl_info = {
     "version": (1, 0, 0),
     "location": "3D Viewport",
     "warning": "",
+    "doc_url": "https://github.com/DotBow/Blender-Sticky-UV-Editor-Add-on",
+    "tracker_url": "https://github.com/DotBow/Blender-Sticky-UV-Editor-Add-on/issues/new",
     "category": "UV"
 }
 
