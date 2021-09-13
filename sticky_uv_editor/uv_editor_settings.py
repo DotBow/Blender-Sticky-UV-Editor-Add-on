@@ -72,6 +72,25 @@ class UVEditorSettings(PropertyGroup):
         description="",
         default=False)
 
+    pixel_snap_mode: EnumProperty(
+        name="Snap to Pixels",
+        description="",
+        items={('DISABLED', "Disabled",
+                "Don't snap to pixels", 0),
+               ('CORNER', "Corner",
+                "Snap to pixel corners", 1),
+               ('CENTER', "Center",
+                "Snap to pixel centers", 2)},
+        default='DISABLED')
+    lock_bounds: BoolProperty(
+        name="Constrain to Image Bounds",
+        description="Constraint to stay within the image bounds while editing",
+        default=False)
+    use_live_unwrap: BoolProperty(
+        name="Live Unwrap",
+        description="Continuously unwrap the selected island while transforming pinned vertices",
+        default=False)
+
     def set(self, area):
         space = area.spaces[0]
         uv_editor = space.uv_editor
@@ -89,6 +108,11 @@ class UVEditorSettings(PropertyGroup):
         space.show_region_ui = self.show_region_ui
         space.show_region_tool_header = self.show_region_tool_header
         space.show_region_hud = self.show_region_hud
+
+        uv_editor.pixel_snap_mode = self.pixel_snap_mode
+        uv_editor.lock_bounds = self.lock_bounds
+        uv_editor.use_live_unwrap = self.use_live_unwrap
+        print(uv_editor.pixel_snap_mode)
 
     def save_from_area(self, area):
         space = area.spaces[0]
@@ -108,6 +132,10 @@ class UVEditorSettings(PropertyGroup):
         self.show_region_tool_header = space.show_region_tool_header
         self.show_region_hud = space.show_region_hud
 
+        self.pixel_snap_mode = uv_editor.pixel_snap_mode
+        self.lock_bounds = uv_editor.lock_bounds
+        self.use_live_unwrap = uv_editor.use_live_unwrap
+
     def save_from_property(self, property):
         self.show_stretch = property.show_stretch
         self.display_stretch_type = property.display_stretch_type
@@ -122,3 +150,7 @@ class UVEditorSettings(PropertyGroup):
         self.show_region_ui = property.show_region_ui
         self.show_region_tool_header = property.show_region_tool_header
         self.show_region_hud = property.show_region_hud
+
+        self.pixel_snap_mode = property.pixel_snap_mode
+        self.lock_bounds = property.lock_bounds
+        self.use_live_unwrap = property.use_live_unwrap

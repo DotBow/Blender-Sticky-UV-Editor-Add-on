@@ -49,6 +49,7 @@ class AddonPreferences(AddonPreferences):
             ("GENERAL", "General", ""),
             ("OVERLAY", "Overlay", ""),
             ("VIEW", "View", ""),
+            ("EDITING", "UV Editing", ""),
             ("KEYMAP", "Keymap", "")
         ],
         default="GENERAL"
@@ -147,6 +148,17 @@ class AddonPreferences(AddonPreferences):
             col.prop(self.uv_editor_settings, "show_region_ui")
             col.prop(self.uv_editor_settings, "show_region_tool_header")
             col.prop(self.uv_editor_settings, "show_region_hud")
+
+        if self.settings_tabs == 'EDITING':
+            box = layout.box()
+            split = box.split()
+            col = split.column()
+            col.label(text="UV Editing Settings:")
+            col.separator()
+
+            col.prop(self.uv_editor_settings, "pixel_snap_mode")
+            col.prop(self.uv_editor_settings, "lock_bounds")
+            col.prop(self.uv_editor_settings, "use_live_unwrap")
 
         # Draw keymap
         if self.settings_tabs == 'KEYMAP':
