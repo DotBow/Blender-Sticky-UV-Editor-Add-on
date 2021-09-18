@@ -112,7 +112,6 @@ class UVEditorSettings(PropertyGroup):
         uv_editor.pixel_snap_mode = self.pixel_snap_mode
         uv_editor.lock_bounds = self.lock_bounds
         uv_editor.use_live_unwrap = self.use_live_unwrap
-        print(uv_editor.pixel_snap_mode)
 
     def save_from_area(self, area):
         space = area.spaces[0]
