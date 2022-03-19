@@ -31,7 +31,7 @@ bl_info = {
     "name": "Sticky UV Editor",
     "author": "Oleg Stepanov (DotBow)",
     "description": "Quickly toggle UV Editor in 3D Viewport area",
-    "blender": (2, 90, 0),
+    "blender": (3, 1, 0),
     "version": (1, 1, 0),
     "location": "3D Viewport",
     "warning": "",
@@ -320,13 +320,13 @@ Hold 'Alt' to open UV Editor in a separate window."""
 
             if self.ui_button is True:
                 context.window.cursor_warp(
-                    event.mouse_x + context.area.width * 0.5, event.mouse_y)
+                    int(event.mouse_x + context.area.width * 0.5), event.mouse_y)
         else:
             uv_area = active_area
 
             if self.ui_button is True:
                 context.window.cursor_warp(
-                    event.mouse_x - context.area.width * 0.5, event.mouse_y)
+                    int(event.mouse_x - context.area.width * 0.5), event.mouse_y)
 
         ui_type = active_area.ui_type
         uv_area.ui_type = 'UV'
