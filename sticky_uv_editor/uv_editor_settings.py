@@ -1,4 +1,4 @@
-from bpy.props import (BoolProperty, EnumProperty, FloatProperty,
+from bpy.props import (BoolProperty, EnumProperty, FloatProperty, IntProperty,
                        IntVectorProperty)
 from bpy.types import PropertyGroup
 
@@ -50,10 +50,20 @@ class UVEditorSettings(PropertyGroup):
         default=True)
 
     tile_grid_shape: IntVectorProperty(
-        name="Tile Grid Shape",
+        name="UDIM Grid Shape",
         description="How many tiles will be shown in the background",
         size=2,
-        default=(0, 0))
+        default=(0, 0),
+        min=0, max=100)
+    use_custom_grid: BoolProperty(
+        name="Custom Grid",
+        description="Use a grid with a user-defined number of steps",
+        default=True)
+    custom_grid_subdivisions: IntProperty(
+        name="Dynamic Grid Size",
+        description="Number of Grid units in UV space that make one UV Unit",
+        default=10,
+        min=1, max=100)
 
     show_region_toolbar: BoolProperty(
         name="Show Toolbar",
@@ -103,6 +113,8 @@ class UVEditorSettings(PropertyGroup):
         uv_editor.show_faces = self.show_faces
         uv_editor.show_metadata = self.show_metadata
         uv_editor.tile_grid_shape = self.tile_grid_shape
+        uv_editor.use_custom_grid = self.use_custom_grid
+        uv_editor.custom_grid_subdivisions = self.custom_grid_subdivisions
 
         space.show_region_toolbar = self.show_region_toolbar
         space.show_region_ui = self.show_region_ui
@@ -125,6 +137,8 @@ class UVEditorSettings(PropertyGroup):
         self.show_faces = uv_editor.show_faces
         self.show_metadata = uv_editor.show_metadata
         self.tile_grid_shape = uv_editor.tile_grid_shape
+        self.use_custom_grid = uv_editor.use_custom_grid
+        self.custom_grid_subdivisions = uv_editor.custom_grid_subdivisions
 
         self.show_region_toolbar = space.show_region_toolbar
         self.show_region_ui = space.show_region_ui
@@ -144,6 +158,8 @@ class UVEditorSettings(PropertyGroup):
         self.show_faces = property.show_faces
         self.show_metadata = property.show_metadata
         self.tile_grid_shape = property.tile_grid_shape
+        self.use_custom_grid = property.use_custom_grid
+        self.custom_grid_subdivisions = property.custom_grid_subdivisions
 
         self.show_region_toolbar = property.show_region_toolbar
         self.show_region_ui = property.show_region_ui

@@ -135,6 +135,12 @@ class AddonPreferences(AddonPreferences):
 
             col.label(text="Image")
             col.prop(self.uv_editor_settings, "show_metadata")
+            col.separator()
+
+            col.label(text="View")
+            col.prop(self.uv_editor_settings, "tile_grid_shape")
+            col.prop(self.uv_editor_settings, "use_custom_grid")
+            col.prop(self.uv_editor_settings, "custom_grid_subdivisions")
 
         if self.settings_tabs == 'VIEW':
             box = layout.box()
