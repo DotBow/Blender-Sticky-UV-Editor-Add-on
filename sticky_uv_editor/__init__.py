@@ -216,7 +216,7 @@ Hold 'Alt' to open UV Editor in a separate window."""
                         # Areas in one horizontal space
                         if area_y == active_area_y:
                             # UV Editor on left
-                            if (active_area_x + active_area_width + 1) == area_x:
+                            if (active_area_x - (area_x + area_width)) < 20:
                                 # Save UV Editor area settings
                                 scene.uv_editor_settings.save_from_area(
                                     active_area)
@@ -237,7 +237,7 @@ Hold 'Alt' to open UV Editor in a separate window."""
                                 return {'FINISHED'}
 
                             # UV Editor on right
-                            if (area_x + area_width + 1) == active_area_x:
+                            if (area_x - (active_area_x + active_area_width)) < 20:
                                 # Save UV Editor area settings
                                 scene.uv_editor_settings.save_from_area(
                                     active_area)
@@ -272,7 +272,7 @@ Hold 'Alt' to open UV Editor in a separate window."""
                         # Areas in one horizontal space
                         if area_y == active_area_y:
                             # 3D View on left
-                            if (active_area_x + active_area_width + 1) == area_x:
+                            if (active_area_x - (area_x + area_width)) < 20:
                                 # Save UV Editor area settings
                                 scene.uv_editor_settings.save_from_area(area)
 
@@ -293,7 +293,7 @@ Hold 'Alt' to open UV Editor in a separate window."""
                                 return {'FINISHED'}
 
                             # 3D View on right
-                            if (area_x + area_width + 1) == active_area_x:
+                            if (area_x - (active_area_x + active_area_width)) < 20:
                                 # Save UV Editor area settings
                                 scene.uv_editor_settings.save_from_area(area)
 
