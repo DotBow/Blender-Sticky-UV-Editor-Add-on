@@ -31,8 +31,8 @@ bl_info = {
     "name": "Sticky UV Editor",
     "author": "Oleg Stepanov (DotBow)",
     "description": "Quickly toggle UV Editor in 3D Viewport area",
-    "blender": (3, 1, 0),
-    "version": (1, 2, 0),
+    "blender": (2, 9, 0),
+    "version": (1, 3, 0),
     "location": "3D Viewport",
     "warning": "",
     "doc_url": "https://github.com/DotBow/Blender-Sticky-UV-Editor-Add-on",
@@ -215,49 +215,53 @@ Hold 'Alt' to open UV Editor in a separate window."""
 
                         # Areas in one horizontal space
                         if area_y == active_area_y:
-                            # UV Editor on left
-                            if (active_area_x - (area_x + area_width)) < 20:
-                                # Save UV Editor area settings
-                                scene.uv_editor_settings.save_from_area(
-                                    active_area)
-
-                                # Close UV Editor area
-                                if app_version >= (3, 0, 0):
-                                    bpy.ops.screen.area_close(
-                                        {"area": active_area})
-                                else:
-                                    bpy.ops.screen.area_join(
-                                        cursor=(area_x, area_y + 10))
-
-                                    # Force update layout
-                                    space = area.spaces[0]
-                                    space.show_region_toolbar = \
-                                        space.show_region_toolbar
-
-                                return {'FINISHED'}
-
                             # UV Editor on right
-                            if (area_x - (active_area_x + active_area_width)) < 20:
-                                # Save UV Editor area settings
-                                scene.uv_editor_settings.save_from_area(
-                                    active_area)
+                            if active_area_x > area_x:
+                                # Editors are side by side
+                                if (active_area_x - (area_x + area_width)) < 20:
+                                    # Save UV Editor area settings
+                                    scene.uv_editor_settings.save_from_area(
+                                        active_area)
 
-                                # Close UV Editor area
-                                if app_version >= (3, 0, 0):
-                                    bpy.ops.screen.area_close(
-                                        {"area": active_area})
-                                else:
-                                    bpy.ops.screen.area_swap(
-                                        cursor=(active_area_x, active_area_y + 10))
-                                    bpy.ops.screen.area_join(
-                                        cursor=(active_area_x, active_area_y + 10))
+                                    # Close UV Editor area
+                                    if app_version >= (3, 0, 0):
+                                        bpy.ops.screen.area_close(
+                                            {"area": active_area})
+                                    else:
+                                        bpy.ops.screen.area_swap(
+                                            cursor=(active_area_x, active_area_y + 10))
+                                        bpy.ops.screen.area_join(
+                                            cursor=(active_area_x, active_area_y + 10))
 
-                                    # Force update layout
-                                    space = active_area.spaces[0]
-                                    space.show_region_toolbar = \
-                                        space.show_region_toolbar
+                                        # Force update layout
+                                        space = active_area.spaces[0]
+                                        space.show_region_toolbar = \
+                                            space.show_region_toolbar
 
-                                return {'FINISHED'}
+                                    return {'FINISHED'}
+
+                            # UV Editor on left
+                            if active_area_x < area_x:
+                                # Editors are side by side
+                                if (area_x - (active_area_x + active_area_width)) < 20:
+                                    # Save UV Editor area settings
+                                    scene.uv_editor_settings.save_from_area(
+                                        active_area)
+
+                                    # Close UV Editor area
+                                    if app_version >= (3, 0, 0):
+                                        bpy.ops.screen.area_close(
+                                            {"area": active_area})
+                                    else:
+                                        bpy.ops.screen.area_join(
+                                            cursor=(area_x, area_y + 10))
+
+                                        # Force update layout
+                                        space = area.spaces[0]
+                                        space.show_region_toolbar = \
+                                            space.show_region_toolbar
+
+                                    return {'FINISHED'}
 
                 self.report({'WARNING'},
                             "Sticky UV Editor: Failed to figure out current layout!")
@@ -271,45 +275,53 @@ Hold 'Alt' to open UV Editor in a separate window."""
 
                         # Areas in one horizontal space
                         if area_y == active_area_y:
-                            # 3D View on left
-                            if (active_area_x - (area_x + area_width)) < 20:
-                                # Save UV Editor area settings
-                                scene.uv_editor_settings.save_from_area(area)
-
-                                # Close UV Editor area
-                                if app_version >= (3, 0, 0):
-                                    bpy.ops.screen.area_close({"area": area})
-                                else:
-                                    bpy.ops.screen.area_swap(
-                                        cursor=(area_x, area_y + 10))
-                                    bpy.ops.screen.area_join(
-                                        cursor=(area_x, area_y + 10))
-
-                                    # Force update layout
-                                    space = area.spaces[0]
-                                    space.show_region_toolbar = \
-                                        space.show_region_toolbar
-
-                                return {'FINISHED'}
-
                             # 3D View on right
-                            if (area_x - (active_area_x + active_area_width)) < 20:
-                                # Save UV Editor area settings
-                                scene.uv_editor_settings.save_from_area(area)
+                            if active_area_x > area_x:
+                                # Editors are side by side
+                                if (active_area_x - (area_x + area_width)) < 20:
+                                    # Save UV Editor area settings
+                                    scene.uv_editor_settings.save_from_area(
+                                        area)
 
-                                # Close UV Editor area
-                                if app_version >= (3, 0, 0):
-                                    bpy.ops.screen.area_close({"area": area})
-                                else:
-                                    bpy.ops.screen.area_join(
-                                        cursor=(active_area_x, active_area_y + 10))
+                                    # Close UV Editor area
+                                    if app_version >= (3, 0, 0):
+                                        bpy.ops.screen.area_close(
+                                            {"area": area})
+                                    else:
+                                        bpy.ops.screen.area_join(
+                                            cursor=(active_area_x, active_area_y + 10))
 
-                                    # Force update layout
-                                    space = active_area.spaces[0]
-                                    space.show_region_toolbar = \
-                                        space.show_region_toolbar
+                                        # Force update layout
+                                        space = active_area.spaces[0]
+                                        space.show_region_toolbar = \
+                                            space.show_region_toolbar
 
-                                return {'FINISHED'}
+                                    return {'FINISHED'}
+
+                            # 3D View on left
+                            if active_area_x < area_x:
+                                # Editors are side by side
+                                if (area_x - (active_area_x + active_area_width)) < 20:
+                                    # Save UV Editor area settings
+                                    scene.uv_editor_settings.save_from_area(
+                                        area)
+
+                                    # Close UV Editor area
+                                    if app_version >= (3, 0, 0):
+                                        bpy.ops.screen.area_close(
+                                            {"area": area})
+                                    else:
+                                        bpy.ops.screen.area_swap(
+                                            cursor=(area_x, area_y + 10))
+                                        bpy.ops.screen.area_join(
+                                            cursor=(area_x, area_y + 10))
+
+                                        # Force update layout
+                                        space = area.spaces[0]
+                                        space.show_region_toolbar = \
+                                            space.show_region_toolbar
+
+                                    return {'FINISHED'}
 
             # Split active 3D View area
             bpy.ops.screen.area_split(
