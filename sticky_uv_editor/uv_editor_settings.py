@@ -1,9 +1,12 @@
+
+import bpy
 from bpy.props import (BoolProperty, EnumProperty, FloatProperty, IntProperty,
                        IntVectorProperty)
 from bpy.types import PropertyGroup
 
 
 class UVEditorSettings(PropertyGroup):
+    app_version = bpy.app.version
     initialized: BoolProperty(
         default=False)
 
@@ -113,8 +116,10 @@ class UVEditorSettings(PropertyGroup):
         uv_editor.show_faces = self.show_faces
         uv_editor.show_metadata = self.show_metadata
         uv_editor.tile_grid_shape = self.tile_grid_shape
-        uv_editor.use_custom_grid = self.use_custom_grid
-        uv_editor.custom_grid_subdivisions = self.custom_grid_subdivisions
+
+        if self.app_version >= (3, 0, 0):
+            uv_editor.use_custom_grid = self.use_custom_grid
+            uv_editor.custom_grid_subdivisions = self.custom_grid_subdivisions
 
         space.show_region_toolbar = self.show_region_toolbar
         space.show_region_ui = self.show_region_ui
@@ -137,8 +142,10 @@ class UVEditorSettings(PropertyGroup):
         self.show_faces = uv_editor.show_faces
         self.show_metadata = uv_editor.show_metadata
         self.tile_grid_shape = uv_editor.tile_grid_shape
-        self.use_custom_grid = uv_editor.use_custom_grid
-        self.custom_grid_subdivisions = uv_editor.custom_grid_subdivisions
+
+        if self.app_version >= (3, 0, 0):
+            self.use_custom_grid = uv_editor.use_custom_grid
+            self.custom_grid_subdivisions = uv_editor.custom_grid_subdivisions
 
         self.show_region_toolbar = space.show_region_toolbar
         self.show_region_ui = space.show_region_ui
@@ -158,8 +165,10 @@ class UVEditorSettings(PropertyGroup):
         self.show_faces = property.show_faces
         self.show_metadata = property.show_metadata
         self.tile_grid_shape = property.tile_grid_shape
-        self.use_custom_grid = property.use_custom_grid
-        self.custom_grid_subdivisions = property.custom_grid_subdivisions
+
+        if self.app_version >= (3, 0, 0):
+            self.use_custom_grid = property.use_custom_grid
+            self.custom_grid_subdivisions = property.custom_grid_subdivisions
 
         self.show_region_toolbar = property.show_region_toolbar
         self.show_region_ui = property.show_region_ui
