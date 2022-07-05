@@ -31,7 +31,7 @@ bl_info = {
     "name": "Sticky UV Editor",
     "author": "Oleg Stepanov (DotBow)",
     "description": "Quickly toggle UV Editor in 3D Viewport area",
-    "blender": (2, 9, 0),
+    "blender": (2, 90, 0),
     "version": (1, 3, 0),
     "location": "3D Viewport",
     "warning": "",
